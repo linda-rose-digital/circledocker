@@ -43,10 +43,6 @@ jobs:
           name: run sauce labs test
           command: |
             npm run sauceLight
-      - run:
-          name: Shut Down Sauce Connect Tunnel
-          command: |
-            killall sc
                   
 workflows:
     version: 2
