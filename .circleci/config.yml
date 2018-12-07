@@ -1,0 +1,9 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: lindard/circleci
+    steps: 
+      - checkout
+      - run: docker
+      - run: ls -R ../circleci-dockerfiles
