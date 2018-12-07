@@ -9,4 +9,4 @@ jobs:
           docker_layer_caching: true
       - run: docker
       - run:  | 
-          docker run --rm -it -p 8080:80 http://hub.docker.com/r/lindard/circleci -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i builtbycircle
+          docker run --rm -it -p 8080:80 lindard/circleci -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i builtbycircle
