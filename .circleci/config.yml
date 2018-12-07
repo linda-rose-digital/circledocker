@@ -2,14 +2,14 @@ version: 2
 jobs:
   build:
     docker:
-      - image: lindard/circleci
+      - image: lindard/circle-sauce-node
     steps: 
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
       - run: docker
       - run:  | 
-          docker run --rm -it -p 8080:80 lindard/circleci -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i builtbycircle
+          docker run --rm -it -p 8080:80 lindard/circle-sauce-node -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i builtbycircle
       - run:
                 name: Shut Down Sauce Connect Tunnel
                 command: |
