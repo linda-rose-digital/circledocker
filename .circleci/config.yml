@@ -9,4 +9,5 @@ jobs:
           docker_layer_caching: true
       - run: docker
       - run:  | 
-          docker run --rm -it -p 8080:80 http://hub.docker.com/r/lindard/circleci -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i BuiltByCircleCi
+          alias sc="docker run --rm -it -p 8000:8000 lindard/circleci"
+          sc -P 8000 -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY
