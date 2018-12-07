@@ -5,5 +5,7 @@ jobs:
       - image: lindard/circleci
     steps: 
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run: docker
       - run: docker run --rm -it -p 8080:80 circle-sauce-node:latest -u testAccountRD -k 2b5b742c-2cca-4735-8c91-fb079935de81 -i CircleCiBuilt
