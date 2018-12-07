@@ -38,12 +38,12 @@ jobs:
           command: |
             docker run --rm -it -p 8080:80 lindard/circle-sauce-node -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i builtbycircle
             sleep 1
-            while ! grep -m1 'Sauce Connect is up, you may start your tests.' < /tmp/sauce-connect-log.txt; do 
+            wget --retry-connrefused --no-check-certificate -T 60 localhost:4445
+            # while ! grep -m1 'Sauce Connect is up, you may start your tests.' < /tmp/sauce-connect-log.txt; do 
             sleep 1
             done
             echo Sauce-Connect is up and running
             npm sauceLight
-            mvn clean test ….
             kill $(cat pid)
       - run: 
           name: run sauce labs test
