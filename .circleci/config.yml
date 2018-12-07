@@ -10,12 +10,16 @@ jobs:
       - run: docker
       - run:  | 
           docker run --rm -it -p 8080:80 lindard/circleci -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i builtbycircle
+      - run:
+                name: Shut Down Sauce Connect Tunnel
+                command: |
+                  killall sc    
       # - run:  | 
       #     name: build
       #     command: |
       #       node nightwatch.conf.js
       #       npm run sauceLight
-      - run:
-          name: Shut Down Sauce Connect Tunnel
-          command: |
-            kill -9 `cat /tmp/sc_client.pid` 
+      # - run:
+      #     name: Shut Down Sauce Connect Tunnel
+      #     command: |
+      #       kill -9 `cat /tmp/sc_client.pid`
