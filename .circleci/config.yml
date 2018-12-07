@@ -37,10 +37,9 @@ jobs:
           name: create proxy tunnel
           command: |
             docker run --rm -it -p 8080:80 lindard/circle-sauce-node -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i builtbycircle
-              background: true
-            - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
-            - curl --retry 10 --retry-delay 2 -v http://localhost:5000
-            - npm sauceLight
+            while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
+            curl --retry 10 --retry-delay 2 -v http://localhost:5000
+            npm sauceLight
       - run: 
           name: run sauce labs test
           command: |
