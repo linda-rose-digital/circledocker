@@ -1,0 +1,35 @@
+{
+  "name": "suace-labs-demo",
+  "version": "1.0.0",
+  "description": "Learn how to use nightwatch, selenium, and saucelabs",
+  "author": "Rose Digital/Linda",
+  "license": "UNLICENSED",
+  "scripts": {
+    "test": "nightwatch --env local",
+    "sauceLight": "nightwatch -e chrome",
+    "sauce": "nightwatch -e chrome,ie11,android_s4_emulator,firefox,chromemac,internet_explorer_10",
+    "dev": "nodemon -w test/index.html --delay 250ms --exec 'npm run upload'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linda-rose-digital/sauceLabsDemo"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.7.13",
+    "chromedriver": "^2.44.1",
+    "env2": "^2.1.1",
+    "grunt": "^0.4.5",
+    "grunt-contrib-connect": "^0.7.1",
+    "grunt-saucelabs": "*",
+    "mime-types": "^2.1.13",
+    "nightwatch": "^0.9.21",
+    "nodemon": "^1.11.0",
+    "selenium-server": "^3.141.59",
+    "standard": "*"
+  },
+  "dependencies": {
+    "sauce-connect-launcher": "^1.2.4",
+    "saucelabs": "^1.3.0",
+    "selenium-download": "^2.0.7"
+  }
+}
