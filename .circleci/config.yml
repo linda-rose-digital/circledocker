@@ -1,25 +1,57 @@
+defaults: &defaults
+  working_directory: &workspace_root ~/tmp
+  docker:
+    - image: lindard/circle-sauce-node
+
+references:
+  persist_to_workspace: &persist_to_workspace
+      persist_to_workspace:
+        root: *workspace_root
+        paths: 
+        - ./
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
 version: 2
 jobs:
   build:
-    docker:
-      - image: lindard/circle-sauce-node
+    <<: *defaults
     steps: 
       - checkout
+      - run:  
+          name: npm install
+          command: |
+            npm install
+      - *persist_to_workspace
+
+  test: 
+    <<: *defaults
+    steps:
+      - *attach_workspace
       - setup_remote_docker:
           docker_layer_caching: true
       - run: docker
-      - run:  | 
-          docker run --rm -it -p 8080:80 lindard/circle-sauce-node -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i builtbycircle
+      - run:  
+          name: create proxy tunnel
+          command: |
+            docker run --rm -it -p 8080:80 lindard/circle-sauce-node -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i builtbycircle
+      - run: 
+          name: run sauce labs test
+          command: |
+            npm sauceLight
       - run:
-                name: Shut Down Sauce Connect Tunnel
-                command: |
-                  killall sc    
-      # - run:  | 
-      #     name: build
-      #     command: |
-      #       node nightwatch.conf.js
-      #       npm run sauceLight
-      # - run:
-      #     name: Shut Down Sauce Connect Tunnel
-      #     command: |
-      #       kill -9 `cat /tmp/sc_client.pid`
+          name: Shut Down Sauce Connect Tunnel
+          command: |
+            killall sc
+                  
+workflows:
+    version: 2
+
+    build-test-deploy:
+      jobs:
+      - build
+      - test:
+          requires:
+            - build
