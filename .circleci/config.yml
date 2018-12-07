@@ -9,5 +9,8 @@ jobs:
           docker_layer_caching: true
       - run: docker
       - run:  | 
+          name: alias
           alias sc="docker run --rm -it -p 8000:8000 lindard/circleci"
+      - run:  | 
+          name: login sauce
           sc -P 8000 -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY
