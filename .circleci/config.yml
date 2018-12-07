@@ -10,7 +10,9 @@ jobs:
       - run: docker
       - run:  | 
           name: alias
-          alias sc="docker run --rm -it -p 8000:8000 lindard/circleci"
+          command: |
+            alias sc="docker run --rm -it -p 8000:8000 lindard/circleci"
       - run:  | 
           name: login sauce
-          sc -P 8000 -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY
+          command: |
+            sc -P 8000 -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY
